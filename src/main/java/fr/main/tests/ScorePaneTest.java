@@ -1,6 +1,6 @@
 package fr.main.tests;
 
-import fr.main.covid19.panes.OutbreakRanking;
+import fr.main.covid19.panes.OutbreakRankingPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,7 +9,7 @@ public class ScorePaneTest extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception{
-		stage.setScene(new Scene( new OutbreakRanking() ));
+		stage.setScene(new Scene( new OutbreakRankingPane() ));
 		stage.show();
 	}
 

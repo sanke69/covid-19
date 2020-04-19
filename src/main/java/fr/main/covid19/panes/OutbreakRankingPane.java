@@ -20,22 +20,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class OutbreakRanking extends OutbreakViewerBase {
+public class OutbreakRankingPane extends OutbreakViewerBase {
 
     public BorderPane root;
     public Node       title, options;
     public ScoreTable table;
 
-    public OutbreakRanking() {
+    public OutbreakRankingPane() {
     	this(10);
     }
-    public OutbreakRanking(int _nbDisplayed) {
+    public OutbreakRankingPane(int _nbDisplayed) {
     	this(_nbDisplayed, null);
     }
-    public OutbreakRanking(int _nbDisplayed, Node _title) {
+    public OutbreakRankingPane(int _nbDisplayed, Node _title) {
     	this(_nbDisplayed, _title, null);
     }
-    public OutbreakRanking(int _nbDisplayed, Node _title, Node _options) {
+    public OutbreakRankingPane(int _nbDisplayed, Node _title, Node _options) {
     	super("Outbreak\nRanking");
 
     	title   = _title   == null ? createDefaultTitle()       : _title;
@@ -155,12 +155,12 @@ public class OutbreakRanking extends OutbreakViewerBase {
 		return anchor;
 	}
 
-	protected Skin<OutbreakRanking>  createDefaultSkin() {
-		return new Skin<OutbreakRanking>() {
+	protected Skin<OutbreakRankingPane>  createDefaultSkin() {
+		return new Skin<OutbreakRankingPane>() {
 
 			@Override
-			public OutbreakRanking getSkinnable() {
-				return OutbreakRanking.this;
+			public OutbreakRankingPane getSkinnable() {
+				return OutbreakRankingPane.this;
 			}
 
 			@Override
