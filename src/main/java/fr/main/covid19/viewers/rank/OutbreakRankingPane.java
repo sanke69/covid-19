@@ -1,4 +1,4 @@
-package fr.main.covid19.panes;
+package fr.main.covid19.viewers.rank;
 
 import java.time.LocalDate;
 
@@ -60,7 +60,7 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 				return ;
 			}
 			
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(_new.getReports(KpiType.Value, LocalDate.now().minusDays(1)),
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(_new.getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now().minusDays(1) )),
 																					r -> r.getCountry().getName(),
 																					r -> r.get(Population.Infected).orElse(0L));
 
@@ -102,7 +102,7 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 			if(databaseProperty().get() == null)
 				return ;
 
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, LocalDate.now()),
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now() )),
 																					r -> r.getCountry().getName(),
 																					r -> r.get(Population.Infected).orElse(0L));
 
@@ -112,7 +112,7 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 			if(databaseProperty().get() == null)
 				return ;
 
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, LocalDate.now()),
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now() )),
 																					r -> r.getCountry().getName(),
 																					r -> r.get(Population.Recovered).orElse(0L));
 
@@ -122,7 +122,7 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 			if(databaseProperty().get() == null)
 				return ;
 
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, LocalDate.now().minusDays(1)),
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now() )),
 																					r -> r.getCountry().getName(),
 																					r -> r.get(Population.Dead).orElse(0L));
 

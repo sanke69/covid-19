@@ -1,9 +1,10 @@
 package fr.main.tests;
 
-import fr.main.covid19.panes.OutbreakRankingPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import fr.main.covid19.viewers.rank.OutbreakRankingPane;
 
 public class ScorePaneTest extends Application {
 

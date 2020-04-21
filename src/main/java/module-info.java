@@ -5,6 +5,9 @@ module javafr.covid19 {
 
 	requires transitive javafr.outbreak;
 	requires javafx.controls;
+	requires org.kordamp.iconli.core;
+	requires org.kordamp.ikonli.javafx;
+	requires org.kordamp.ikonli.materialdesign;
 
 	exports fr.covid19;
 

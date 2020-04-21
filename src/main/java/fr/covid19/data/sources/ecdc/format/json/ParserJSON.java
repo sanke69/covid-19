@@ -73,8 +73,9 @@ public class ParserJSON {
 	}
 
 	static class EcdcReportSerializer extends StdSerializer<DailyReport> {
+		private static final long serialVersionUID = 1333672778155321928L;
 
-	    public EcdcReportSerializer() {
+		public EcdcReportSerializer() {
 	        this(null);
 	    }
 

@@ -5,7 +5,7 @@
 
 	<groupId>com.pechberti.steve</groupId>
 	<artifactId>covid-19</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 
 	<name>JavaFR: Covid-19 DataBase</name>
 	<description>
@@ -21,13 +21,30 @@
 		<dependency>
 			<groupId>com.pechberti.steve</groupId>
 			<artifactId>outbreak-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.11.0.rc1</version>
+		</dependency>
+		
+		<!-- worldfx dependencies -->
+		<dependency>
+		    <groupId>org.kordamp.ikonli</groupId>
+		    <artifactId>ikonli-core</artifactId>
+		    <version>11.3.5</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.kordamp.ikonli</groupId>
+		    <artifactId>ikonli-javafx</artifactId>
+		    <version>11.3.5</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.kordamp.ikonli</groupId>
+		    <artifactId>ikonli-materialdesign-pack</artifactId>
+		    <version>11.3.5</version>
 		</dependency>
     </dependencies>
 
