@@ -186,7 +186,7 @@ public class OutbreakMapPane extends OutbreakViewerBase implements OutbreakViewe
 	                                    .mouseExitHandler(e -> ((FontIcon) e.getSource()).setFill(Color.CRIMSON))
 	                                    .build())
                             .mousePressHandler(evt -> _handleMouseClick((MouseEvent) evt))
-                            .zoomEnabled(true)
+//                            .zoomEnabled(true)
                             .build();
 	}
 	private void 					_createDateSelecter() {
