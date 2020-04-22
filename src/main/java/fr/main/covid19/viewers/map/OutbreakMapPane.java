@@ -147,13 +147,20 @@ public class OutbreakMapPane extends OutbreakViewerBase implements OutbreakViewe
         EventHandler<MouseEvent> meh = countryOnClick.get(country);
         
         if(meh == null) {
-        	Outbreak.Report infos = countryInfos.get(country);
         	StringBuilder   sb = new StringBuilder();
+        	sb.append(country.getName() + " (" + country.iso2() + "/" + country.iso3() + ")" + "\n");
+
+        	Outbreak.Report infos = countryInfos.get(country);
+
+        	if(infos == null) {
+            	sb.append("  - No available data " + "\n");
+        	} else {
+            	sb.append("  - Nb Infected : " + infos.get(Population.Infected) + "\n");
+            	sb.append("  - Nb Dead     : " + infos.get(Population.Dead) + "\n");
+            	sb.append("  - Population  : " + infos.get(Population.Total) + "\n");        		
+        	}
         	
         	sb.append(country.getName() + " (" + country.iso2() + "/" + country.iso3() + ")" + "\n");
-        	sb.append("  - Nb Infected : " + infos.get(Population.Infected) + "\n");
-        	sb.append("  - Nb Dead     : " + infos.get(Population.Dead) + "\n");
-        	sb.append("  - Population  : " + infos.get(Population.Total) + "\n");
         	
         	System.out.println(sb.toString());
 

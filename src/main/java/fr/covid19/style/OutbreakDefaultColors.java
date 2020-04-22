@@ -35,13 +35,13 @@ public class OutbreakDefaultColors {
 							new GenericRung<Long>(10_000L, Color.RED),
 							new GenericRung<Long>(25_000L, Color.WHITE)  );
 	static List<GenericRung<Long>> infectedRungs    = 
-			Arrays.asList(	new GenericRung<Long>(     0L, Color.GREEN),
-							new GenericRung<Long>(   100L, Color.BLUE),
-							new GenericRung<Long>( 1_000L, Color.CYAN),
-							new GenericRung<Long>( 2_500L, Color.GREEN),
-							new GenericRung<Long>( 5_000L, Color.YELLOW),
-							new GenericRung<Long>(10_000L, Color.RED),
-							new GenericRung<Long>(25_000L, Color.WHITE)  );
+			Arrays.asList(	new GenericRung<Long>(        0L, Color.GREEN),
+							new GenericRung<Long>(      100L, Color.BLUE),
+							new GenericRung<Long>(    1_000L, Color.CYAN),
+							new GenericRung<Long>(    2_500L, Color.GREEN),
+							new GenericRung<Long>(   10_000L, Color.YELLOW),
+							new GenericRung<Long>(  100_000L, Color.RED),
+							new GenericRung<Long>(1_000_000L, Color.WHITE)  );
 	static List<GenericRung<Long>> recoveryRungs    = 
 			Arrays.asList(	new GenericRung<Long>(     0L, Color.GREEN),
 							new GenericRung<Long>(   100L, Color.BLUE),

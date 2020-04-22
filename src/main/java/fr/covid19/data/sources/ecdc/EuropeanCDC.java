@@ -19,9 +19,12 @@ package fr.covid19.data.sources.ecdc;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,6 +34,8 @@ import fr.covid19.data.sources.ecdc.format.json.ParserJSON;
 import fr.covid19.data.utils.JNet;
 
 public class EuropeanCDC {
+	public static final String ECDC_RECORDS_PATH = "/ssd/share/data/covid19/ecdc";
+
 	public static enum Version { 
 		CSV  ("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/", "csv"), 
 		JSON ("https://opendata.ecdc.europa.eu/covid19/casedistribution/json/", "json");
@@ -52,23 +57,26 @@ public class EuropeanCDC {
 
 	}
 
-	public static final String ECDC_RECORDS_PATH     = "/ssd/share/data/covid19/ecdc";
 
 	public static Version usedVersion;
-	public static Path    downloadPath;
+	public static Path    downloadPath, storagePath;
 
 	static {
 		usedVersion  = Version.JSON;
-		downloadPath = Paths.get(ECDC_RECORDS_PATH);
+		downloadPath = Paths.get( System.getProperty("java.io.tmpdir") );
+		storagePath  = Paths.get(ECDC_RECORDS_PATH);
 	}
 
 	public static Collection<DailyReport> getDailyReports() {
-		LocalDate         today  = LocalDate.now();
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime     today  = LocalDateTime.now();
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd_HHmmss.SSS");
 		Path              file   = downloadPath.resolve("covid19" + '-' + today.format(format) + '.' + usedVersion.extension());
 
 		try {
 			if(JNet.wget(usedVersion.url(), file)) {
+				if( storagePath.toFile().exists() )
+					persistentStore(file);
+
 				return switch(usedVersion) {
 				case CSV  -> throw new RuntimeException("Not yet in this release..."); // ParserCSV.parse(file);
 				case JSON -> ParserJSON.parse(file);
@@ -79,6 +87,28 @@ public class EuropeanCDC {
 		}
 
 		return Collections.emptyList();
+	}
+
+	public static void persistentStore(Path _file) {
+		LocalDate         today  = LocalDate.now();
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		Path              file   = downloadPath.resolve("covid19" + '-' + today.format(format) + '.' + usedVersion.extension());
+
+		try {
+			if(file.toFile().exists()) {
+				boolean sameFile = (Files.mismatch(file, _file) == -1);
+				
+				if(sameFile)
+					return ;
+				else
+					Files.copy(_file, file, StandardCopyOption.COPY_ATTRIBUTES);
+			}
+			else
+				Files.copy(_file, file, StandardCopyOption.COPY_ATTRIBUTES);
+
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
