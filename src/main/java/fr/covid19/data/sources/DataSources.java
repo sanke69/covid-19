@@ -15,24 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.main.tests;
+package fr.covid19.data.sources;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import fr.main.covid19.viewers.rank.OutbreakRankingPane;
-
-public class ScorePaneTest extends Application {
-
-	@Override
-	public void start(Stage stage) throws Exception{
-		stage.setScene(new Scene( new OutbreakRankingPane() ));
-		stage.show();
-	}
-
-	public static void main(String... args) {
-		Application.launch(ScorePaneTest.class, args);
-	}
+public class DataSources {
 
 }

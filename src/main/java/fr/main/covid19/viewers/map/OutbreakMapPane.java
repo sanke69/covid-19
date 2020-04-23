@@ -1,6 +1,6 @@
 /**
- * OutBreak API
- * Copyright (C) 2007-?XYZ  Steve PECHBERTI <steve.pechberti@laposte.net>
+ * OutBreak API - Covid-19
+ * Copyright (C) 2020-?XYZ  Steve PECHBERTI <steve.pechberti@laposte.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

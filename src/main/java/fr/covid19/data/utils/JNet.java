@@ -1,6 +1,6 @@
 /**
- * OutBreak API
- * Copyright (C) 2007-?XYZ  Steve PECHBERTI <steve.pechberti@laposte.net>
+ * OutBreak API - Covid-19
+ * Copyright (C) 2020-?XYZ  Steve PECHBERTI <steve.pechberti@laposte.net>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-package fr.covid19.data.utils;
+ */package fr.covid19.data.utils;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
