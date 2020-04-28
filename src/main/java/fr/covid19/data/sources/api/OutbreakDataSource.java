@@ -15,8 +15,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.covid19.data.sources;
+package fr.covid19.data.sources.api;
 
-public class DataSources {
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import fr.outbreak.api.Outbreak;
+import fr.reporting.sdk.utils.ReportDownloader;
+
+public abstract class OutbreakDataSource<OR extends Outbreak.Report> extends ReportDownloader<OR> {
+
+	protected OutbreakDataSource() {
+		this(Paths.get("/ssd/share/data/covid-19"));
+	}
+	protected OutbreakDataSource(Path _storagePath) {
+		this(_storagePath, null);
+	}
+	protected OutbreakDataSource(Path _storagePath, Path _downloadPath) {
+		super(_storagePath, _downloadPath);
+	}
 
 }

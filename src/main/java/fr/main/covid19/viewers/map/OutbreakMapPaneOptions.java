@@ -30,10 +30,10 @@ import fr.javafx.scene.properties.Editor;
 import fr.javafx.scene.properties.SelecterSingle;
 
 import fr.geodesic.referential.api.countries.Country;
-import fr.outbreak.api.Outbreak.KpiType;
-import fr.outbreak.graphics.OutbreakViewerOptions;
+import fr.reporting.api.Report;
+import fr.reporting.sdk.graphics.ReportViewerOptions;
 
-public class OutbreakMapPaneOptions extends OutbreakViewerOptions<OutbreakMapPane> {
+public class OutbreakMapPaneOptions extends ReportViewerOptions<OutbreakMapPane> {
 	public static enum DisplayMode {
 		Cases,          Deaths,          Recover,
 		CasePerMillion, DeathPerMillion, RecoverPerMillion
@@ -60,7 +60,7 @@ public class OutbreakMapPaneOptions extends OutbreakViewerOptions<OutbreakMapPan
 			return ;
 		
 		
-		List<Country> countries = _map.getDatabase().getIndicators(KpiType.Variation, r -> r.getCountry(), true)
+		List<Country> countries = _map.getDatabase().getIndicators(Report.Type.Variation, r -> r.getCountry(), true)
 													.stream()
 													.sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()))
 													.collect(Collectors.toList());

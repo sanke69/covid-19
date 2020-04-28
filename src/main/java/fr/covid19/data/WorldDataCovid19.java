@@ -18,15 +18,15 @@
 
 import java.util.Collection;
 
-import fr.covid19.data.sources.ecdc.format.DailyReport;
 import fr.geodesic.referential.api.countries.Country;
+import fr.outbreak.api.Outbreak;
 import fr.outbreak.api.Outbreak.Population;
-import fr.outbreak.api.database.SimpleOutbreakDataBase;
+import fr.outbreak.sdk.data.SimpleOutbreakDataBase;
 
-public class WorldDataCovid19 extends SimpleOutbreakDataBase {
-	Collection<DailyReport> reports;
+public class WorldDataCovid19<OR extends Outbreak.Report> extends SimpleOutbreakDataBase {
+	Collection<Outbreak.Report> reports;
 
-	public WorldDataCovid19(Collection<DailyReport> _reports) {
+	public WorldDataCovid19(Collection<Outbreak.Report> _reports) {
 		super(_reports);
 		reports = _reports;
 	}

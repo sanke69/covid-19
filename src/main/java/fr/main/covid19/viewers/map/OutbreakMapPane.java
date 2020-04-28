@@ -20,9 +20,7 @@ package fr.main.covid19.viewers.map;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.SortedSet;
-import java.util.function.Predicate;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -41,12 +39,11 @@ import fr.javafx.scene.properties.Editor;
 import fr.covid19.style.OutbreakDefaultColors;
 import fr.geodesic.referential.api.countries.Country;
 import fr.outbreak.api.Outbreak;
-import fr.outbreak.api.Outbreak.KpiType;
-import fr.outbreak.api.Outbreak.LocalizedReport;
 import fr.outbreak.api.Outbreak.Population;
-import fr.outbreak.api.records.OutbreakRecord;
-import fr.outbreak.graphics.OutbreakViewerBase;
-import fr.outbreak.graphics.OutbreakViewerMap;
+import fr.outbreak.api.OutbreakViewer;
+import fr.outbreak.sdk.data.OutbreakRecord;
+import fr.reporting.api.Report;
+import fr.reporting.sdk.graphics.ReportViewerBase;
 
 import eu.hansolo.fx.world.CountryPath;
 import eu.hansolo.fx.world.LocationBuilder;
@@ -54,17 +51,17 @@ import eu.hansolo.fx.world.World;
 import eu.hansolo.fx.world.World.Resolution;
 import eu.hansolo.fx.world.WorldBuilder;
 
-public class OutbreakMapPane extends OutbreakViewerBase implements OutbreakViewerMap {
-	private BorderPane   							container;
+public class OutbreakMapPane extends ReportViewerBase<Outbreak.Report, Outbreak.DataBase> implements OutbreakViewer.Map {
+	private BorderPane   										container;
 
-    private World     	 							world;
-    private Editor<LocalDate> 						dateSelecter;
+    private World     	 										world;
+    private Editor<LocalDate> 									dateSelecter;
 
-    private Map<Country, Outbreak.Report> 			countryInfos   = new HashMap<Country, Outbreak.Report>();
-    private Map<Country, Color>				 		countryColors  = new HashMap<Country, Color>();
-    private Map<Country, EventHandler<MouseEvent>>	countryOnClick = new HashMap<Country, EventHandler<MouseEvent>>();
+    private java.util.Map<Country, Outbreak.Report> 			countryInfos   = new HashMap<Country, Outbreak.Report>();
+    private java.util.Map<Country, Color>				 		countryColors  = new HashMap<Country, Color>();
+    private java.util.Map<Country, EventHandler<MouseEvent>>	countryOnClick = new HashMap<Country, EventHandler<MouseEvent>>();
 
-    private ColorScale<Long>						outbreaHeatMap = null;
+    private ColorScale<Long>									outbreaHeatMap = null;
 
 	public OutbreakMapPane() {
 		super("Map View");
@@ -91,7 +88,7 @@ public class OutbreakMapPane extends OutbreakViewerBase implements OutbreakViewe
 		if(getDatabase() == null)
 			return ;
 
-		KpiType             type       = KpiType.Value;
+		Report.Type         type       = Report.Type.Value;
 		Population          population = Population.Infected;
 		Collection<Country> countries  = getDatabase().getIndicators(type, r -> r.getCountry(), true);
 
@@ -99,12 +96,12 @@ public class OutbreakMapPane extends OutbreakViewerBase implements OutbreakViewe
 
 		for(Country c : countries) {
 			if(!c.justConcept()) {
-				SortedSet<Outbreak.LocalizedReport> reports = getDatabase().getReports(KpiType.Value, 
-																		   r -> r.getCountry().equals(c) && r.getDate().equals(_date), 
-																		   LocalizedReport.comparatorByDate);
+				SortedSet<Outbreak.Report> reports = getDatabase().getReports(Report.Type.Value, 
+																			   r -> r.getCountry().equals(c) && r.getDate().equals(_date), 
+																			   Report.Daily.comparatorByDate());
 
 				if(reports != null && !reports.isEmpty()) {
-					Outbreak.LocalizedReport report = reports.first();
+					Outbreak.Report report = reports.first();
 
 					Outbreak.Report r = new OutbreakRecord( report.get(Population.Susceptible) .orElse(-1L), 
 															report.get(Population.Infected)    .orElse(-1L), 

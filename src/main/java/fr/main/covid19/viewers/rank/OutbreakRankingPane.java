@@ -19,12 +19,6 @@ package fr.main.covid19.viewers.rank;
 
 import java.time.LocalDate;
 
-import fr.java.api.score.Score;
-import fr.javafx.api.score.ScoreTable;
-import fr.outbreak.api.Outbreak;
-import fr.outbreak.api.Outbreak.KpiType;
-import fr.outbreak.api.Outbreak.Population;
-import fr.outbreak.graphics.OutbreakViewerBase;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,7 +31,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class OutbreakRankingPane extends OutbreakViewerBase {
+import fr.java.api.score.Score;
+
+import fr.javafx.api.score.ScoreTable;
+
+import fr.outbreak.api.Outbreak;
+import fr.outbreak.api.Outbreak.Population;
+import fr.reporting.api.Report;
+import fr.reporting.sdk.graphics.ReportViewerBase;
+
+public class OutbreakRankingPane extends ReportViewerBase<Outbreak.Report, Outbreak.DataBase> {
 
     public BorderPane root;
     public Node       title, options;
@@ -77,9 +80,9 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 				return ;
 			}
 			
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(_new.getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now().minusDays(1) )),
-																					r -> r.getCountry().getName(),
-																					r -> r.get(Population.Infected).orElse(0L));
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.Report>(_new.getReports(Report.Type.Value, r -> r.getDate().equals( LocalDate.now().minusDays(1) )),
+																			r -> r.getCountry().getName(),
+																			r -> r.get(Population.Infected).orElse(0L));
 
 			table.getItems().addAll( db.getTop10() );
     	});
@@ -119,7 +122,7 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 			if(databaseProperty().get() == null)
 				return ;
 
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now() )),
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.Report>(getDatabase().getReports(Report.Type.Value, r -> r.getDate().equals( LocalDate.now() )),
 																					r -> r.getCountry().getName(),
 																					r -> r.get(Population.Infected).orElse(0L));
 
@@ -129,7 +132,7 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 			if(databaseProperty().get() == null)
 				return ;
 
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now() )),
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.Report>(getDatabase().getReports(Report.Type.Value, r -> r.getDate().equals( LocalDate.now() )),
 																					r -> r.getCountry().getName(),
 																					r -> r.get(Population.Recovered).orElse(0L));
 
@@ -139,7 +142,7 @@ public class OutbreakRankingPane extends OutbreakViewerBase {
 			if(databaseProperty().get() == null)
 				return ;
 
-			Score.HallOfFame db = new Score.UserDatabase<Outbreak.LocalizedReport>(getDatabase().getReports(KpiType.Value, r -> r.getDate().equals( LocalDate.now() )),
+			Score.HallOfFame db = new Score.UserDatabase<Outbreak.Report>(getDatabase().getReports(Report.Type.Value, r -> r.getDate().equals( LocalDate.now() )),
 																					r -> r.getCountry().getName(),
 																					r -> r.get(Population.Dead).orElse(0L));
 

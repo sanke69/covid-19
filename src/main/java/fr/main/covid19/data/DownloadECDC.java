@@ -17,16 +17,16 @@
  */
 package fr.main.covid19.data;
 
+import java.io.IOException;
 import java.util.Collection;
 
-import fr.covid19.data.sources.ecdc.EuropeanCDC;
-import fr.covid19.data.sources.ecdc.format.DailyReport;
+import fr.covid19.data.sources.http.EuropeanCDC;
 
 public class DownloadECDC {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		System.out.println("Start downloading...");
-		Collection<DailyReport> reports = EuropeanCDC.getDailyReports();
+		Collection<? extends EuropeanCDC.Record> reports = new EuropeanCDC().getRecords();
 		System.out.println("Nb reports= " + reports.size());
 	}
 

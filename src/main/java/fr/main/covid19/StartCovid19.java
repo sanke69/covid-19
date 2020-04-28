@@ -24,24 +24,23 @@ import javafx.application.Application;
 import fr.covid19.MainCovid19;
 import fr.main.covid19.viewers.map.OutbreakMapPane;
 import fr.main.covid19.viewers.rank.OutbreakRankingPane;
-import fr.outbreak.graphics.OutbreakStage;
-import fr.outbreak.graphics.viewers.about.OutbreakAboutPane;
-import fr.outbreak.graphics.viewers.chart.OutbreakChartPane;
-import fr.outbreak.graphics.viewers.chart.OutbreakChartPaneOptionsBasics;
-import fr.outbreak.graphics.viewers.chart.OutbreakChartPaneOptionsComparison;
-import fr.outbreak.graphics.viewers.table.OutbreakTablePane;
-import fr.outbreak.graphics.viewers.table.OutbreakTablePaneOptions;
+import fr.outbreak.graphics.viewers.OutbreakAboutPane;
+import fr.outbreak.graphics.viewers.OutbreakTablePane;
+import fr.outbreak.graphics.viewers.OutbreakTablePaneOptions;
+import fr.outbreak.graphics.viewers.OutbreakTimeSeries;
+import fr.outbreak.graphics.viewers.OutbreakTimeSeriesOptionsBasics;
+import fr.outbreak.graphics.viewers.OutbreakTimeSeriesOptionsComparison;
 
 public class StartCovid19 extends MainCovid19 {
 
 	@Override
-	public void setViewers(OutbreakStage _stage) {
+	public void setViewers(Stage _stage) {
 		_stage.registerViewerPane(new OutbreakAboutPane());
 		_stage.registerViewerPane(new OutbreakRankingPane());
 		_stage.registerViewerPane(new OutbreakMapPane());
-		_stage.registerViewerPane(new OutbreakChartPane("Chart View"),    new OutbreakChartPaneOptionsBasics());
+		_stage.registerViewerPane(new OutbreakTimeSeries("Chart View"),    new OutbreakTimeSeriesOptionsBasics());
 		_stage.registerViewerPane(new OutbreakTablePane(),                new OutbreakTablePaneOptions());
-		_stage.registerViewerPane(new OutbreakChartPane("Chart Compare"), new OutbreakChartPaneOptionsComparison());
+		_stage.registerViewerPane(new OutbreakTimeSeries("Chart Compare"), new OutbreakTimeSeriesOptionsComparison());
 	}
 
 	public static void main(String[] args) throws IOException {

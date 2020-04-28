@@ -16,10 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */package fr.covid19;
 
-import fr.covid19.data.WorldDataCovid19;
-import fr.covid19.data.sources.ecdc.EuropeanCDC;
-import fr.outbreak.MainOutbreak;
-import fr.outbreak.api.database.OutbreakDataBase;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -27,7 +23,13 @@ import javafx.concurrent.Worker;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 
-public abstract class MainCovid19 extends MainOutbreak.Graphics {
+import fr.covid19.data.WorldDataCovid19;
+import fr.covid19.data.sources.http.EuropeanCDC;
+import fr.outbreak.OutbreakApplication;
+import fr.outbreak.api.Outbreak;
+import fr.reporting.sdk.graphics.ReportStage;
+
+public abstract class MainCovid19 extends OutbreakApplication.Graphics {
 
 	public MainCovid19() {
 		super();
@@ -38,13 +40,13 @@ public abstract class MainCovid19 extends MainOutbreak.Graphics {
 		final Scene  scene  = getPrimaryStage().getScene();
 		final Cursor cursor = scene.getCursor();
 
-		final Service<OutbreakDataBase> loadService = new Service<OutbreakDataBase>() {
+		final Service<Outbreak.DataBase> loadService = new Service<Outbreak.DataBase>() {
 			@Override
-			protected Task<OutbreakDataBase> createTask() {
-				Task<OutbreakDataBase> task = new Task<OutbreakDataBase>() {
+			protected Task<Outbreak.DataBase> createTask() {
+				Task<Outbreak.DataBase> task = new Task<Outbreak.DataBase>() {
 					@Override
-					protected OutbreakDataBase call() throws Exception {
-						return new WorldDataCovid19( EuropeanCDC.getDailyReports() );
+					protected Outbreak.DataBase call() throws Exception {
+						return new WorldDataCovid19( new EuropeanCDC().getRecords() );
 					}
 				};
 
